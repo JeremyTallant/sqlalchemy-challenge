@@ -14,9 +14,6 @@ In this section, you’ll use Python and SQLAlchemy to do a basic climate analys
 
 3. Link Python to the database by creating a SQLAlchemy session.
 
-#### IMPORTANT
-* Remember to close your session at the end of your notebook.
-
 4. Perform a precipitation analysis and then a station analysis by completing the steps in the following two subsections.
 
 ### Precipitation Analysis
