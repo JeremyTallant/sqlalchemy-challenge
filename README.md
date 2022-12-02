@@ -146,11 +146,18 @@ Now that you’ve completed your initial analysis, you’ll design a Flask API b
 <img width="1440" alt="Screenshot 2022-12-02 at 9 54 08 AM" src="https://user-images.githubusercontent.com/112406455/205332909-f5cc337f-cd75-424c-b926-73d3fc8997b5.png">
 
 ## Code Execution Instructions:
-* Download the repository onto you computer
-* Open the "climate.ipynb" file in a Jupyter Notebook
-* Select the "Kernel" tab and click "Restart Kernel and Clear all Outputs"
-* Then proceed to hit shift + enter to cycle through the script cell by cell
-* The code is accompanied by an outline to walk you through the process step by step
+* Download the repository onto you computer.
+* Open the "climate.ipynb" file in a Jupyter Notebook.
+* Select the "Kernel" tab and click "Restart Kernel and Clear all Outputs".
+* Then proceed to hit shift + enter to cycle through the script cell by cell.
+* The code is accompanied by an outline to walk you through the process step by step.
+* Open the app.py file to see how the Flask application is created.
+* To run the application, first open up a terminal or git bash window.
+* Navigate to the SurfsUp folder.
+* Once inside the SurfsUp folder run the program by typing in "python app.py"
+* Then copy the link where it says running on: "http://127.0.0.1:5000/" and paste it in any web browser of your chosing.
+* The landing page will pop up with all available routes
+* Then just copy the extensions and paste at the end of the url to navigate to each page. 
 
 
 ## References
