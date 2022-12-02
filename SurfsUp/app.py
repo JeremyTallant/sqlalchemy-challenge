@@ -113,7 +113,7 @@ def tobs():
     year_ago_date = dt.date(2017,8,23) - dt.timedelta(days = 365)
     
     # Preform a query to retrieve the dates and temperature observations of the most active station for the previous year of data
-    active_station = session.query(measurement.tobs, measurement.date).filter(measurement.station == 'USC00519281').\
+    active_station = session.query(measurement.date, measurement.tobs).filter(measurement.station == 'USC00519281').\
                             filter(measurement.date >= year_ago_date).all()
     
     # Close Session                                                  
