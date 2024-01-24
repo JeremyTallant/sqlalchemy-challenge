@@ -1,90 +1,81 @@
-from flask import Flask, jsonify
-from sqlalchemy import create_engine, func
-from sqlalchemy.orm import Session
-from sqlalchemy.ext.automap import automap_base
+import numpy as np
 import datetime as dt
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+from flask import Flask, jsonify
 
-app = Flask(__name__)
-
-# Database setup
-engine = create_engine("sqlite:///path_to_your_hawaii.sqlite")
+# Database Setup
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 Base = automap_base()
-Base.prepare(engine, reflect=True)
-
-Measurement = Base.classes.measurement
+Base.prepare(autoload_with=engine)
+measurement = Base.classes.measurement
 Station = Base.classes.station
 
-# Home route
-@app.route("/")
-def home():
-    """List all available API routes."""
-    return (
-        f"Available Routes:<br/>"
-        f"/api/v1.0/precipitation<br/>"
-        f"/api/v1.0/stations<br/>"
-        f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/&lt;start&gt;<br/>"
-        f"/api/v1.0/&lt;start&gt;/&lt;end&gt;<br/>"
-    )
+# Flask Setup
+app = Flask(__name__)
 
-# Precipitation route
+def get_year_ago_date():
+    """Helper function to get the date one year ago from the last record."""
+    session = Session(engine)
+    latest_date = session.query(func.max(measurement.date)).scalar()
+    session.close()
+    return dt.datetime.strptime(latest_date, "%Y-%m-%d") - dt.timedelta(days=365)
+
+# Flask Routes
+@app.route("/")
+def homepage():
+    """List all available API routes."""
+    # Route descriptions
+    routes = {
+        "/api/v1.0/precipitation": "Precipitation Data for One Year",
+        "/api/v1.0/stations": "List of Active Weather Stations",
+        "/api/v1.0/tobs": "Temperature Observations of the Most-Active Station for One Year",
+        "/api/v1.0/<start>": "The Min, Avg, and Max Temperature for a specified Start Date",
+        "/api/v1.0/<start>/<end>": "The Min, Avg, and Max Temperatures for a specified Start and End Date"
+    }
+    # Formatting the routes for display
+    return 'Welcome to the Hawaii Climate Analysis API!<br/>' + '<br/>'.join([f'{route}: {description}' for route, description in routes.items()])
+
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     session = Session(engine)
-    # Query for the last year of precipitation data
-    one_year_ago = dt.datetime.now() - dt.timedelta(days=365)
-    results = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= one_year_ago).all()
+    year_ago_date = get_year_ago_date()
+    results = session.query(measurement.date, measurement.prcp).filter(measurement.date >= year_ago_date).all()
     session.close()
+    return jsonify({date: prcp for date, prcp in results})
 
-    # Convert to dictionary
-    precipitation_dict = {date: prcp for date, prcp in results}
-    return jsonify(precipitation_dict)
-
-# Stations route
 @app.route("/api/v1.0/stations")
 def stations():
     session = Session(engine)
-    results = session.query(Station.station).all()
+    stations = session.query(Station.name, Station.station, Station.elevation, Station.latitude, Station.longitude).all()
     session.close()
+    return jsonify([{"Name": name, "Station ID": station, "Elevation": elevation, "Latitude": latitude, "Longitude": longitude} for name, station, elevation, latitude, longitude in stations])
 
-    # Convert list of tuples into normal list
-    stations_list = [station[0] for station in results]
-    return jsonify(stations_list)
-
-# TOBS route
 @app.route("/api/v1.0/tobs")
 def tobs():
     session = Session(engine)
-    # Query for the most active station
-    most_active_station = session.query(Measurement.station).group_by(Measurement.station).order_by(func.count(Measurement.station).desc()).first()[0]
-    one_year_ago = dt.datetime.now() - dt.timedelta(days=365)
-    # Query the last year of temperature observation data for this station
-    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.station == most_active_station, Measurement.date >= one_year_ago).all()
+    year_ago_date = get_year_ago_date()
+    active_station = session.query(measurement.tobs, measurement.date).filter(measurement.station == 'USC00519281').filter(measurement.date >= year_ago_date).all()
     session.close()
+    return jsonify({date: temp for date, temp in active_station})
 
-    tobs_list = [{date: tobs} for date, tobs in results]
-    return jsonify(tobs_list)
-
-# Start route
 @app.route("/api/v1.0/<start>")
 def start(start):
     session = Session(engine)
-    results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start).all()
+    query_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start).all()
     session.close()
+    min_temp, max_temp, avg_temp = query_results[0]
+    return jsonify({"Start Date": start, "Minimum Temperature": min_temp, "Maximum Temperature": max_temp, "Average Temperature": avg_temp})
 
-    # Unpack the `min`, `avg`, and `max` temperatures
-    min_temp, avg_temp, max_temp = results[0]
-    return jsonify({"TMIN": min_temp, "TAVG": avg_temp, "TMAX": max_temp})
-
-# Start-End route
 @app.route("/api/v1.0/<start>/<end>")
 def start_end(start, end):
     session = Session(engine)
-    results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start, Measurement.date <= end).all()
+    query_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start, measurement.date <= end).all()
     session.close()
-
-    min_temp, avg_temp, max_temp = results[0]
-    return jsonify({"TMIN": min_temp, "TAVG": avg_temp, "TMAX": max_temp})
+    min_temp, max_temp, avg_temp = query_results[0]
+    return jsonify({"Start Date": start, "End Date": end, "Minimum Temperature": min_temp, "Maximum Temperature": max_temp, "Average Temperature": avg_temp})
 
 if __name__ == '__main__':
     app.run(debug=True)
