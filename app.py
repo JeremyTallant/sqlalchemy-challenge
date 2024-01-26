@@ -72,15 +72,58 @@ def precipitation():
     if not results:
         return "<p>No precipitation data found.</p>"
 
-    # Create HTML content
-    html = "<html><head><title>Precipitation Data</title></head><body>"
-    html += "<h1>Precipitation Data for the Last Year</h1>"
-    html += "<ul>"
+    # Create HTML content with enhanced styling
+    html = """
+    <html>
+    <head>
+        <title>Precipitation Data</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #f4f4f4;
+                text-align: center;
+            }
+            h1 {
+                color: #333;
+            }
+            table {
+                margin: 20px auto;
+                border-collapse: collapse;
+                width: 80%;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            tr:hover {
+                background-color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Precipitation Data for the Last Year</h1>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Precipitation (inches)</th>
+            </tr>
+    """
 
     for date, prcp in results:
-        html += f"<li>{date}: {prcp}</li>"
+        prcp_display = prcp if prcp is not None else "N/A"  # Handle None values
+        html += f"<tr><td>{date}</td><td>{prcp_display}</td></tr>"
 
-    html += "</ul></body></html>"
+    html += "</table></body></html>"
     return html
 
 @app.route("/api/v1.0/stations")
@@ -158,15 +201,57 @@ def tobs():
     if not active_station:
         return "<p>No temperature observations found for the most active station.</p>"
 
-    # Create HTML content
-    html = "<html><head><title>Temperature Observations</title></head><body>"
-    html += "<h1>Temperature Observations for the Most Active Station (Last Year)</h1>"
-    html += "<ul>"
+    # Create HTML content with enhanced styling
+    html = """
+    <html>
+    <head>
+        <title>Temperature Observations</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #f4f4f4;
+                text-align: center;
+            }
+            h1 {
+                color: #333;
+            }
+            table {
+                margin: 20px auto;
+                border-collapse: collapse;
+                width: 80%;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            tr:hover {
+                background-color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Temperature Observations for the Most Active Station (Last Year)</h1>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Temperature (°F)</th>
+            </tr>
+    """
 
-    for date, temp in active_station:
-        html += f"<li>{temp}:{date}°F</li>"
+    for temp, date in active_station:
+        html += f"<tr><td>{date}</td><td>{temp}°F</td></tr>"
 
-    html += "</ul></body></html>"
+    html += "</table></body></html>"
     return html
 
 
