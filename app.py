@@ -48,17 +48,22 @@ def homepage():
                 a:hover { text-decoration: underline; }
             </style>
             <script>
-                function redirectToTemperatureRoute() {
+                function redirectToStartRoute() {
                     var startDate = document.getElementById('start-date').value;
-                    var endDate = document.getElementById('end-date').value;
                     if (startDate) {
-                        if (endDate) {
-                            window.location.href = '/api/v1.0/' + startDate + '/' + endDate;
-                        } else {
-                            window.location.href = '/api/v1.0/' + startDate;
-                        }
+                        window.location.href = '/api/v1.0/' + startDate;
                     } else {
                         alert('Please enter a start date.');
+                    }
+                }
+
+                function redirectToStartEndRoute() {
+                    var startDate = document.getElementById('start-end-date').value;
+                    var endDate = document.getElementById('end-date').value;
+                    if (startDate && endDate) {
+                        window.location.href = '/api/v1.0/' + startDate + '/' + endDate;
+                    } else {
+                        alert('Please enter both start and end dates.');
                     }
                 }
             </script>
@@ -70,20 +75,20 @@ def homepage():
                 <li><a href="/api/v1.0/precipitation">Precipitation Data for One Year</a></li>
                 <li><a href="/api/v1.0/stations">List of Active Weather Stations</a></li>
                 <li><a href="/api/v1.0/tobs">Temperature Observations of the Most-Active Station for One Year</a></li>
-            <li>
-                <label for="start-date">Start Date (YYYY-MM-DD):</label>
-                <input type="date" id="start-date" min="2010-01-01" max="2017-08-23">
-                <button onclick="redirectToStartRoute()">Get Start Date Data</button>
-            </li>
-            <li>
-                <label for="start-end-date">Start Date (YYYY-MM-DD):</label>
-                <input type="date" id="start-end-date" min="2010-01-01" max="2017-08-23">
-                <label for="end-date">End Date (YYYY-MM-DD):</label>
-                <input type="date" id="end-date" min="2010-01-01" max="2017-08-23">
-                <button onclick="redirectToStartEndRoute()">Get Start-End Date Data</button>
-            </li>
-        </ul>
-    </body>
+                <li>
+                    <label for="start-date">Select a date to get temperature data:</label>
+                    <input type="date" id="start-date" min="2010-01-01" max="2017-08-23">
+                    <button onclick="redirectToStartRoute()">Get Start Date Data</button>
+                </li>
+                <li>
+                    <label for="start-end-date">Select a date range to get temperature data: Start Date:</label>
+                    <input type="date" id="start-end-date" min="2010-01-01" max="2017-08-23">
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date" min="2010-01-01" max="2017-08-23">
+                    <button onclick="redirectToStartEndRoute()">Get Start-End Date Data</button>
+                </li>
+            </ul>
+        </body>
     </html>
     """
 
@@ -124,7 +129,7 @@ def precipitation():
                 text-align: left;
             }
             th {
-                background-color: #4CAF50;
+                background-color: #333366;
                 color: white;
             }
             tr:nth-child(even) {
@@ -187,7 +192,7 @@ def stations():
                 text-align: left;
             }
             th {
-                background-color: #4CAF50;
+                background-color: #333366;
                 color: white;
             }
             tr:nth-child(even) {
@@ -253,7 +258,7 @@ def tobs():
                 text-align: left;
             }
             th {
-                background-color: #4CAF50;
+                background-color: #333366;
                 color: white;
             }
             tr:nth-child(even) {
