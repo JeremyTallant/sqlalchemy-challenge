@@ -37,28 +37,46 @@ def homepage():
     """List all available API routes."""
     return """
     <html>
-    <head>
-        <title>Hawaii Climate Analysis API</title>
-        <style>
-            body { font-family: Arial, sans-serif; margin: 40px; }
-            h1 { color: #333366; }
-            ul { list-style-type: none; padding: 0; }
-            li { margin: 10px 0; }
-            a { color: #0077cc; text-decoration: none; }
-            a:hover { text-decoration: underline; }
-        </style>
-    </head>
-    <body>
-        <h1>Welcome to the Hawaii Climate Analysis API</h1>
-        <p>Available Routes:</p>
-        <ul>
-            <li><a href="/api/v1.0/precipitation">Precipitation Data for One Year</a></li>
-            <li><a href="/api/v1.0/stations">List of Active Weather Stations</a></li>
-            <li><a href="/api/v1.0/tobs">Temperature Observations of the Most-Active Station for One Year</a></li>
-            <li><a href="/api/v1.0/YYYY-MM-DD">The Min, Avg, and Max Temperature for a specified Start Date</a></li>
-            <li><a href="/api/v1.0/YYYY-MM-DD/YYYY-MM-DD">The Min, Avg, and Max Temperatures for a specified Start and End Date</a></li>
-        </ul>
-    </body>
+        <head>
+            <title>Hawaii Climate Analysis API</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; }
+                h1 { color: #333366; }
+                ul { list-style-type: none; padding: 0; }
+                li { margin: 10px 0; }
+                a { color: #0077cc; text-decoration: none; }
+                a:hover { text-decoration: underline; }
+            </style>
+            <script>
+                function redirectToTemperatureRoute() {
+                    var startDate = document.getElementById('start-date').value;
+                    var endDate = document.getElementById('end-date').value;
+                    if (startDate) {
+                        if (endDate) {
+                            window.location.href = '/api/v1.0/' + startDate + '/' + endDate;
+                        } else {
+                            window.location.href = '/api/v1.0/' + startDate;
+                        }
+                    } else {
+                        alert('Please enter a start date.');
+                    }
+                }
+            </script>
+        </head>
+        <body>
+            <h1>Welcome to the Hawaii Climate Analysis API</h1>
+            <p>Available Routes:</p>
+            <ul>
+                <li><a href="/api/v1.0/precipitation">Precipitation Data for One Year</a></li>
+                <li><a href="/api/v1.0/stations">List of Active Weather Stations</a></li>
+                <li><a href="/api/v1.0/tobs">Temperature Observations of the Most-Active Station for One Year</a></li>
+                <li>
+                    <input type="date" id="start-date" placeholder="Start Date (YYYY-MM-DD)">
+                    <input type="date" id="end-date" placeholder="End Date (YYYY-MM-DD)">
+                    <button onclick="redirectToTemperatureRoute()">Get Temperature Data</button>
+                </li>
+            </ul>
+        </body>
     </html>
     """
 
@@ -240,7 +258,7 @@ def tobs():
         </style>
     </head>
     <body>
-        <h1>Temperature Observations for the Most Active Station (Last Year)</h1>
+        <h1>Temperature Observations for the Most Active Station (One Year)</h1>
         <table>
             <tr>
                 <th>Date</th>
