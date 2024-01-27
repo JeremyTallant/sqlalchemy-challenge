@@ -78,7 +78,12 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 ```
 Here, we set the stage for interacting with our database using SQLAlchemy, a comprehensive set of Python tools for working with databases. We import the necessary components: `create_engine` to connect to our database, `automap_base` to reflect the database tables into models, `Session` to establish a link for database transactions, and `func` for SQL function operations. This setup is crucial for mapping our database schema into Python objects and executing database operations seamlessly within our analysis.
-
+#### Creating a Database Engine
+```python
+# create engine to hawaii.sqlite
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+```
+Now, we create an engine to connect to the `hawaii.sqlite` database. This engine acts as the primary access point for our database, allowing us to execute SQL queries and access the data stored in `Resources/hawaii.sqlite`. With this connection established, we're ready to dive into the data and start our exploration.
 
 
 
