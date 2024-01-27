@@ -62,6 +62,13 @@ style.use('fivethirtyeight')
 import matplotlib.pyplot as plt
 ```
 Let's begin by configuring Matplotlib to suit our visualization needs within the Jupyter Notebook. By setting it to inline mode, our plots will display directly in the notebook. We also adopt the 'fivethirtyeight' style – known for its clean and visually appealing graphs. Additionally, we opt for SVG format for our output figures, ensuring they are sharp and scalable, enhancing both the quality and clarity of our visual data representations.
+#### Essential Library Imports
+```python
+import numpy as np
+import pandas as pd
+import datetime as dt
+```
+Next up, we import the core libraries that will power our data analysis. We bring in NumPy for efficient numerical computations, Pandas for sophisticated data manipulation and exploration, and the datetime module for handling all date and time-related tasks. These libraries lay the groundwork for our journey through the project's data processing and analysis phases.
 
 
 
