@@ -112,7 +112,12 @@ Having reflected our database, we now save references to each table for easy acc
 session = Session(engine)
 ```
 With this code, we're creating a session, which is our gateway for communicating with the database. The `Session` object, instantiated with the `engine` we previously created, establishes a link from Python to our database. This session will be used to execute queries and interact with the database, enabling us to retrieve, add, or manipulate data within our `hawaii.sqlite` database directly from Python. Think of it as opening a conversation with our database, ready to send and receive information.
-
-
+#### Retrieving the Most Recent Date from the Database
+```python
+# Find the most recent date in the data set.
+most_recent_date = session.query(func.max(measurement.date)).scalar()
+print("Most Recent Date:", most_recent_date)
+```
+This code segment is focused on extracting the most recent date available in our dataset. We achieve this by executing a query through our established session, where we use `func.max(measurement.date)` to find the latest date in the `measurement` table. The `scalar()` method then fetches this single value, which we store in `most_recent_date`. Finally, we print out this date, giving us a clear understanding of the up-to-date extent of our climate data, a crucial piece of information for subsequent analysis.
 
 
