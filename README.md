@@ -26,9 +26,9 @@ The Honolulu Climate Analysis and API Tool project utilizes two primary data sou
 	* `date`: The date of observation.
 	* `prcp`: Daily precipitation in inches.
 	* `tobs`: Temperature observed at the station on a given day (in Fahrenheit).
+
 Example entries from `hawaii_measurements.csv`:
 ```csv
-Copy code
 station,date,prcp,tobs
 USC00519397,2010-01-01,0.08,65
 USC00519397,2010-01-02,0,63
@@ -40,9 +40,9 @@ USC00519397,2010-01-03,0,74
 	* `latitude`: Geographic latitude.
 	* `longitude`: Geographic longitude.
 	* `elevation`: Elevation above sea level.
+
 Example entries from `hawaii_stations.csv`:
 ```csv
-Copy code
 station,name,latitude,longitude,elevation
 USC00519397,"WAIKIKI 717.2, HI US",21.2716,-157.8168,3
 USC00513117,"KANEOHE 838.1, HI US",21.4234,-157.8015,14.6
