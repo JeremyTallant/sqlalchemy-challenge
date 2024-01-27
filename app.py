@@ -116,7 +116,7 @@ def precipitation():
                 text-align: center;
             }
             h1 {
-                color: #333;
+                color: #333366;
             }
             table {
                 margin: 20px auto;
