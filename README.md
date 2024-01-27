@@ -193,4 +193,9 @@ plt.ylabel('Frequency')
 plt.show()
 ```
 Here, we query and visualize the last 12 months of temperature data for the most active station, 'USC00519281'. First, we retrieve the temperature observations (tobs) for this specific station since the date calculated as one year ago. This data is then transformed into a Pandas DataFrame for ease of manipulation. Utilizing Pandas' plotting capabilities, we create a histogram with 12 bins to represent the frequency distribution of temperatures observed at this station over the past year. The plot is appropriately titled and labeled, providing a clear and informative visualization of the temperature trends and variations at the most active station in our dataset.
-
+#### Closing the Database Session
+```python
+# Close Session
+session.close()
+```
+This line of code is crucial as it closes the open database session. Closing the session is an important best practice in database management as it releases the resources held by the session, ensuring there are no lingering connections or transactions. This helps maintain the integrity of the data and the efficiency of the database interactions within your application.
