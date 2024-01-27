@@ -145,4 +145,9 @@ plt.xlabel("Date")
 plt.show()
 ```
 In this section, we query the last 12 months of precipitation data from the `measurement` table, starting from the most recent date in the dataset. After calculating the date one year back, we retrieve and sort this data chronologically. It's then transformed into a Pandas DataFrame with dates as the index. Using Pandas and Matplotlib, we plot these precipitation trends, providing a clear, visual understanding of the rainfall patterns over the past year, essential for analyzing the climate of the region.
-
+#### Computing Summary Statistics for Precipitation
+```python
+# Use Pandas to calculate the summary statistics for the precipitation data
+df.describe()
+```
+This line of code utilizes Pandas' `describe()` function to compute summary statistics for the precipitation data stored in our DataFrame `df`. This function generates descriptive statistics including mean, standard deviation, minimum, maximum, and the quartile values for the dataset, offering a comprehensive statistical overview of the precipitation trends over the last year.
