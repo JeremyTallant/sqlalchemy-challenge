@@ -119,5 +119,30 @@ most_recent_date = session.query(func.max(measurement.date)).scalar()
 print("Most Recent Date:", most_recent_date)
 ```
 This code segment is focused on extracting the most recent date available in our dataset. We achieve this by executing a query through our established session, where we use `func.max(measurement.date)` to find the latest date in the `measurement` table. The `scalar()` method then fetches this single value, which we store in `most_recent_date`. Finally, we print out this date, giving us a clear understanding of the up-to-date extent of our climate data, a crucial piece of information for subsequent analysis.
+#### Visualizing Yearly Precipitation Data
+```python
+# Design a query to retrieve the last 12 months of precipitation data and plot the results. 
+# Starting from the most recent data point in the database. 
 
+# Calculate the date one year from the last date in data set.
+one_year_ago = dt.datetime.strptime(most_recent_date, '%Y-%m-%d') - dt.timedelta(days=365)
+
+# Perform a query to retrieve the data and precipitation scores
+precipitation_data = session.query(measurement.date, measurement.prcp).filter(measurement.date >= one_year_ago).order_by(measurement.date).all()
+
+# Save the query results as a Pandas DataFrame and set the index to the date column
+df = pd.DataFrame(precipitation_data, columns=['date', 'precipitation'])
+df.set_index('date', inplace=True)
+
+# Sort the dataframe by date
+df = df.sort_index()
+
+# Use Pandas Plotting with Matplotlib to plot the data
+df.plot(rot=90,figsize=(12,6), legend=False)
+plt.title("Precipitation Over the Last 12 Months")
+plt.ylabel("Inches")
+plt.xlabel("Date")
+plt.show()
+```
+In this section, we query the last 12 months of precipitation data from the `measurement` table, starting from the most recent date in the dataset. After calculating the date one year back, we retrieve and sort this data chronologically. It's then transformed into a Pandas DataFrame with dates as the index. Using Pandas and Matplotlib, we plot these precipitation trends, providing a clear, visual understanding of the rainfall patterns over the past year, essential for analyzing the climate of the region.
 
