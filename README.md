@@ -98,7 +98,14 @@ In this step, we utilize SQLAlchemy's `automap_base` to reflect our existing dat
 # View all of the classes that automap found
 Base.classes.keys()
 ```
-Here, we're leveraging the `Base.classes.keys()` method to list all the classes that SQLAlchemy's automapper has discovered in the database. This step essentially shows us the names of the tables that have been automatically mapped to Python classes, providing a clear view of what we're working with and ensuring that our database schema has been accurately reflected into our Python environment. It's an essential checkpoint to verify that 
+Here, we're leveraging the `Base.classes.keys()` method to list all the classes that SQLAlchemy's automapper has discovered in the database. This step essentially shows us the names of the tables that have been automatically mapped to Python classes, providing a clear view of what we're working with and ensuring that our database schema has been accurately reflected into our Python environment. It's an essential checkpoint to verify that our ORM setup correctly recognizes the database structure.
+#### Storing Table References
+```python
+# Save references to each table
+measurement = Base.classes.measurement
+station = Base.classes.station
+```
+Having reflected our database, we now save references to each table for easy access. We assign `Base.classes.measurement` to `measurement` and `Base.classes.station` to `station`. This creates convenient Python variables representing each table in our database, allowing us to interact with them directly in our upcoming queries. This step simplifies our code and makes our interactions with the `measurement` and `station` tables more intuitive.
 
 
 
