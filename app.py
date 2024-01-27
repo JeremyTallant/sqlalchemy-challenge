@@ -136,8 +136,8 @@ def precipitation():
             table {
                 margin: 20px auto;
                 border-collapse: collapse;
-                width: 80%;
-                background: white;
+                width: 50%;
+                background: #f7f7f7;
             }
             th, td {
                 border: 1px solid #ddd;
@@ -149,7 +149,7 @@ def precipitation():
                 color: white;
             }
             tr:nth-child(even) {
-                background-color: #f2f2f2;
+                background-color: #f7f7f7;
             }
             tr:hover {
                 background-color: #ddd;
