@@ -168,3 +168,15 @@ for station, count in most_active_stations:
     print(f"Station: {station}, Count: {count}")
 ```
 In this code, we design a query to determine the most active weather stations, defined by the frequency of their data entries. The query counts the number of occurrences of each station in the `measurement` table, groups them by station ID, and then orders the results in descending order based on these counts. The `all()` method retrieves the entire result set, which we then iterate through. For each station, we print its ID along with its respective data entry count, effectively listing the stations from most to least active. This provides valuable insights into which stations have the most comprehensive data records in our dataset.
+#### Analyzing Temperature Data of the Most Active Station
+```python
+# Using the most active station id from the previous query, calculate the lowest, highest, and average temperature.
+temperatures = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.station == 'USC00519281').all()
+lowest_temp, highest_temp, average_temp = temperatures[0]
+station_id = 'USC00519281'
+print(f"Station ID: {station_id}")
+print(f"Lowest Temperature: {lowest_temp}")
+print(f"Highest Temperature: {highest_temp}")
+print(f"Average Temperature: {average_temp:.2f}")
+```
+This snippet focuses on analyzing temperature data for the most active station, identified as 'USC00519281'. We calculate the lowest, highest, and average temperatures recorded at this station by executing a SQLAlchemy query, which utilizes functions like `func.min`, `func.max`, and `func.avg` on the `tobs` (temperature observations) column. After retrieving these values, we assign them to respective variables for clarity and display them. This provides a detailed snapshot of the temperature range and typical conditions at the station, encapsulating key climatic information for this specific location in our dataset.
