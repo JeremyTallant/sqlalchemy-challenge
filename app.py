@@ -115,192 +115,45 @@ def precipitation():
     session.close()
 
     if not results:
-        return "<p>No precipitation data found.</p>"
+        return jsonify({"error": "No precipitation data found."})
 
-    # Create HTML content with enhanced styling
-    html = """
-    <html>
-    <head>
-        <title>Precipitation Data</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background: #dae8fc;
-                text-align: center;
-            }
-            h1 {
-                color: #333366;
-            }
-            table {
-                margin: 20px auto;
-                border-collapse: collapse;
-                width: 25%;
-                background: #f7f7f7;
-            }
-            th, td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #333366;
-                color: white;
-            }
-            tr:nth-child(even) {
-                background-color: #f7f7f7;
-            }
-            tr:hover {
-                background-color: #ddd;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Precipitation Data for the Last Year</h1>
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Precipitation (inches)</th>
-            </tr>
-    """
+    # Format the results as a dictionary
+    precipitation_data = {date: prcp for date, prcp in results}
 
-    for date, prcp in results:
-        prcp_display = prcp if prcp is not None else "N/A"  # Handle None values
-        html += f"<tr><td>{date}</td><td>{prcp_display}</td></tr>"
-
-    html += "</table></body></html>"
-    return html
+    return jsonify(precipitation_data)
 
 @app.route("/api/v1.0/stations")
 def stations():
     session = Session(engine)
-    stations = session.query(Station.name, Station.station, Station.elevation, Station.latitude, Station.longitude).all()
+    # Query to retrieve all station data
+    stations_results = session.query(Station.name, Station.station, Station.elevation, Station.latitude, Station.longitude).all()
     session.close()
 
-    if not stations:
-        return "<p>No station data found.</p>"
+    if not stations_results:
+        return jsonify({"error": "No station data found."})
 
-    # Create HTML content
-    html = """
-    <html>
-    <head>
-        <title>Weather Stations</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background: #dae8fc;
-                text-align: center;
-            }
-            h1 {
-                color: #333366;
-            }
-            table {
-                margin: 20px auto;
-                border-collapse: collapse;
-                width: 80%;
-                background: #f7f7f7;
-            }
-            th, td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #333366;
-                color: white;
-            }
-            tr:nth-child(even) {
-                background-color: #f7f7f7;
-            }
-            tr:hover {
-                background-color: #ddd;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>List of Active Weather Stations</h1>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Station ID</th>
-                <th>Elevation</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-            </tr>
-    """
+    # Format the results as a list of dictionaries
+    stations_data = [{"name": name, "station": station, "elevation": elevation, "latitude": latitude, "longitude": longitude} for name, station, elevation, latitude, longitude in stations_results]
 
-    for name, station, elevation, latitude, longitude in stations:
-        html += f"<tr><td>{name}</td><td>{station}</td><td>{elevation}</td><td>{latitude}</td><td>{longitude}</td></tr>"
-
-    html += "</table></body></html>"
-    return html
+    return jsonify(stations_data)
 
 @app.route("/api/v1.0/tobs")
 def tobs():
     session = Session(engine)
     year_ago_date = dt.date(2017, 8, 23) - dt.timedelta(days=365)
-    active_station = session.query(measurement.tobs, measurement.date).filter(measurement.station == 'USC00519281').filter(measurement.date >= year_ago_date).all()
+
+    # Query to retrieve temperature observations for the most active station for the last year
+    tobs_results = session.query(measurement.date, measurement.tobs).filter(measurement.station == 'USC00519281').filter(measurement.date >= year_ago_date).all()
     session.close()
 
-    if not active_station:
-        return "<p>No temperature observations found for the most active station.</p>"
+    if not tobs_results:
+        return jsonify({"error": "No temperature observation data found."})
 
-    # Create HTML content with enhanced styling
-    html = """
-    <html>
-    <head>
-        <title>Temperature Observations</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background: #dae8fc;
-                text-align: center;
-            }
-            h1 {
-                color: #333366;
-            }
-            table {
-                margin: 20px auto;
-                border-collapse: collapse;
-                width: 25%;
-                background: #f7f7f7;
-            }
-            th, td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #333366;
-                color: white;
-            }
-            tr:nth-child(even) {
-                background-color: #f7f7f7;
-            }
-            tr:hover {
-                background-color: #ddd;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Temperature Observations for the Most Active Station (USC00519281) for One Year</h1>
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Temperature (°F)</th>
-            </tr>
-    """
+    # Format the results as a list of dictionaries
+    tobs_data = [{"date": date, "temperature": tobs} for date, tobs in tobs_results]
 
-    for temp, date in active_station:
-        html += f"<tr><td>{date}</td><td>{temp}°F</td></tr>"
+    return jsonify(tobs_data)
 
-    html += "</table></body></html>"
-    return html
 
 
 @app.route("/api/v1.0/<start>")
