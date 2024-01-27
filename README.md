@@ -93,7 +93,12 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 ```
 In this step, we utilize SQLAlchemy's `automap_base` to reflect our existing database schema into a new model. This automatic mapping translates the `hawaii.sqlite` database tables into Python classes, creating a clear and direct correspondence between the database structure and our Python code. After establishing the base model, we call `Base.prepare` with the engine we created, setting `reflect=True` to introspect the database tables and create mapped classes. This reflection process is crucial for enabling an ORM-based approach to interact with our database in a Pythonic way.
-
+#### Viewing Reflected Classes
+```python
+# View all of the classes that automap found
+Base.classes.keys()
+```
+Here, we're leveraging the `Base.classes.keys()` method to list all the classes that SQLAlchemy's automapper has discovered in the database. This step essentially shows us the names of the tables that have been automatically mapped to Python classes, providing a clear view of what we're working with and ensuring that our database schema has been accurately reflected into our Python environment. It's an essential checkpoint to verify that 
 
 
 
