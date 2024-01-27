@@ -180,3 +180,17 @@ print(f"Highest Temperature: {highest_temp}")
 print(f"Average Temperature: {average_temp:.2f}")
 ```
 This snippet focuses on analyzing temperature data for the most active station, identified as 'USC00519281'. We calculate the lowest, highest, and average temperatures recorded at this station by executing a SQLAlchemy query, which utilizes functions like `func.min`, `func.max`, and `func.avg` on the `tobs` (temperature observations) column. After retrieving these values, we assign them to respective variables for clarity and display them. This provides a detailed snapshot of the temperature range and typical conditions at the station, encapsulating key climatic information for this specific location in our dataset.
+#### Temperature Histogram for the Most Active Station
+```python
+# Using the most active station id
+# Query the last 12 months of temperature observation data for this station and plot the results as a histogram
+temperature_data = session.query(measurement.tobs).filter(measurement.station == 'USC00519281').filter(measurement.date >= one_year_ago).all()
+most_active_station = pd.DataFrame(temperature_data)
+most_active_station.plot(kind = 'hist', figsize = (10,6), bins=12)
+plt.title(f"Temperature Observations for Station USC00519281 (Last 12 Months)")
+plt.xlabel('Temperature')
+plt.ylabel('Frequency')
+plt.show()
+```
+Here, we query and visualize the last 12 months of temperature data for the most active station, 'USC00519281'. First, we retrieve the temperature observations (tobs) for this specific station since the date calculated as one year ago. This data is then transformed into a Pandas DataFrame for ease of manipulation. Utilizing Pandas' plotting capabilities, we create a histogram with 12 bins to represent the frequency distribution of temperatures observed at this station over the past year. The plot is appropriately titled and labeled, providing a clear and informative visualization of the temperature trends and variations at the most active station in our dataset.
+
