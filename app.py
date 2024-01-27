@@ -40,12 +40,25 @@ def homepage():
         <head>
             <title>Hawaii Climate Analysis API</title>
             <style>
-                body { font-family: Arial, sans-serif; margin: 40px; }
+                body { font-family: Arial, sans-serif; margin: 40px; background: #dae8fc; }
                 h1 { color: #333366; }
                 ul { list-style-type: none; padding: 0; }
                 li { margin: 10px 0; }
                 a { color: #0077cc; text-decoration: none; }
                 a:hover { text-decoration: underline; }
+                button {
+                    background-color: #333366; 
+                    color: white; 
+                    border: none;
+                    padding: 10px 15px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 5px; 
+                }
             </style>
             <script>
                 function redirectToStartRoute() {
