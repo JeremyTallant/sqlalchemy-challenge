@@ -159,3 +159,12 @@ total_stations = session.query(func.count(station.station.distinct())).scalar()
 print("Total number of stations:", total_stations)
 ```
 This code segment is designed to determine the total number of distinct weather stations in the dataset. By utilizing a SQLAlchemy query with `func.count`, we count the unique instances of the `station` identifier in the station table. The `scalar()` method is then used to extract this count as a single value, which we store in `total_stations`. Finally, we output this value, giving us a clear understanding of the number of unique weather stations contributing to our dataset.
+#### Identifying the Most Active Weather Stations
+```python
+# Design a query to find the most active stations (i.e. what stations have the most rows?)
+# List the stations and the counts in descending order.
+most_active_stations = session.query(measurement.station, func.count(measurement.station)).group_by(measurement.station).order_by(func.count(measurement.station).desc()).all()
+for station, count in most_active_stations:
+    print(f"Station: {station}, Count: {count}")
+```
+In this code, we design a query to determine the most active weather stations, defined by the frequency of their data entries. The query counts the number of occurrences of each station in the `measurement` table, groups them by station ID, and then orders the results in descending order based on these counts. The `all()` method retrieves the entire result set, which we then iterate through. For each station, we print its ID along with its respective data entry count, effectively listing the stations from most to least active. This provides valuable insights into which stations have the most comprehensive data records in our dataset.
