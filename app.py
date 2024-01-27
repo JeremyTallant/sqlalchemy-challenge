@@ -159,80 +159,64 @@ def tobs():
 @app.route("/api/v1.0/<start>")
 def start(start):
     session = Session(engine)
-    query_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start).all()
+
+    # Validate the date format
+    try:
+        valid_start = dt.datetime.strptime(start, "%Y-%m-%d")
+    except ValueError:
+        return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."})
+
+    # Query to retrieve temperature statistics from the given start date
+    temp_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start).all()
     session.close()
 
-    if not query_results:
-        return "<p>No temperature data found for the given start date.</p>"
+    if not temp_results or temp_results[0][0] is None:
+        return jsonify({"error": "No temperature data found for the given start date."})
 
-    min_temp, max_temp, avg_temp = query_results[0]
+    min_temp, max_temp, avg_temp = temp_results[0]
 
-    html = f"""
-    <html>
-    <head>
-        <title>Temperature Statistics</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; background: #dae8fc; text-align: center; }}
-            h1 {{ color: #333366; }}
-            table {{ margin: 20px auto; border-collapse: collapse; width: 40%; background: #f7f7f7; }}
-            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-            th {{ background-color: #333366; color: white; }}
-            tr:nth-child(even) {{ background-color: #f2f2f2; }}
-            tr:hover {{ background-color: #ddd; }}
-        </style>
-    </head>
-    <body>
-        <h1>Temperature Data for {start}</h1>
-        <table>
-            <tr><th>Data</th><th>Value (°F)</th></tr>
-            <tr><td>Minimum Temperature</td><td>{min_temp}°F</td></tr>
-            <tr><td>Maximum Temperature</td><td>{max_temp}°F</td></tr>
-            <tr><td>Average Temperature</td><td>{avg_temp:.2f}°F</td></tr>
-        </table>
-    </body>
-    </html>
-    """
+    # Format the results as a dictionary
+    temp_data = {
+        "Start Date": start,
+        "Minimum Temperature": min_temp,
+        "Maximum Temperature": max_temp,
+        "Average Temperature": avg_temp
+    }
 
-    return html
+    return jsonify(temp_data)
+
 
 @app.route("/api/v1.0/<start>/<end>")
 def start_end(start, end):
     session = Session(engine)
-    query_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start, measurement.date <= end).all()
+
+    # Validate the date formats
+    try:
+        valid_start = dt.datetime.strptime(start, "%Y-%m-%d")
+        valid_end = dt.datetime.strptime(end, "%Y-%m-%d")
+    except ValueError:
+        return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."})
+
+    # Query to retrieve temperature statistics for the given date range
+    temp_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start, measurement.date <= end).all()
     session.close()
 
-    if not query_results:
-        return "<p>No temperature data found for the given date range.</p>"
+    if not temp_results or temp_results[0][0] is None:
+        return jsonify({"error": "No temperature data found for the given date range."})
 
-    min_temp, max_temp, avg_temp = query_results[0]
+    min_temp, max_temp, avg_temp = temp_results[0]
 
-    html = f"""
-    <html>
-    <head>
-        <title>Temperature Data</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; background: #dae8fc; text-align: center; }}
-            h1 {{ color: #333366; }}
-            table {{ margin: 20px auto; border-collapse: collapse; width: 40%; background: #f7f7f7; }}
-            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-            th {{ background-color: #333366; color: white; }}
-            tr:nth-child(even) {{ background-color: #f2f2f2; }}
-            tr:hover {{ background-color: #ddd; }}
-        </style>
-    </head>
-    <body>
-        <h1>Temperature Data from {start} to {end}</h1>
-        <table>
-            <tr><th>Data</th><th>Value (°F)</th></tr>
-            <tr><td>Minimum Temperature</td><td>{min_temp}°F</td></tr>
-            <tr><td>Maximum Temperature</td><td>{max_temp}°F</td></tr>
-            <tr><td>Average Temperature</td><td>{avg_temp:.2f}°F</td></tr>
-        </table>
-    </body>
-    </html>
-    """
+    # Format the results as a dictionary
+    temp_data = {
+        "Start Date": start,
+        "End Date": end,
+        "Minimum Temperature": min_temp,
+        "Maximum Temperature": max_temp,
+        "Average Temperature": avg_temp
+    }
 
-    return html
+    return jsonify(temp_data)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
