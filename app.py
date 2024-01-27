@@ -44,8 +44,8 @@ def homepage():
                 h1 { color: #333366; }
                 ul { list-style-type: none; padding: 0; }
                 li { margin: 10px 0; }
-                a { color: #0077cc; text-decoration: none; }
-                a:hover { text-decoration: underline; }
+                a { color: color: #333366; text-decoration: none; }
+                a:hover { color: #0077cc; text-decoration: underline; }
                 button {
                     background-color: #333366; 
                     color: white; 
