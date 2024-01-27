@@ -69,9 +69,15 @@ import pandas as pd
 import datetime as dt
 ```
 Next up, we import the core libraries that will power our data analysis. We bring in NumPy for efficient numerical computations, Pandas for sophisticated data manipulation and exploration, and the datetime module for handling all date and time-related tasks. These libraries lay the groundwork for our journey through the project's data processing and analysis phases.
-
-
-
+#### Setting Up SQLAlchemy for Database Interaction
+```python
+# Python SQL toolkit and Object Relational Mapper
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+```
+Here, we set the stage for interacting with our database using SQLAlchemy, a comprehensive set of Python tools for working with databases. We import the necessary components: `create_engine` to connect to our database, `automap_base` to reflect the database tables into models, `Session` to establish a link for database transactions, and `func` for SQL function operations. This setup is crucial for mapping our database schema into Python objects and executing database operations seamlessly within our analysis.
 
 
 
