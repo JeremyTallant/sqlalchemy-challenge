@@ -179,7 +179,7 @@ def stations():
                 text-align: center;
             }
             h1 {
-                color: #333;
+                color: #333366;
             }
             table {
                 margin: 20px auto;
@@ -245,7 +245,7 @@ def tobs():
                 text-align: center;
             }
             h1 {
-                color: #333;
+                color: #333366;
             }
             table {
                 margin: 20px auto;
