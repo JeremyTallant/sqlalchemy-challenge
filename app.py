@@ -42,10 +42,12 @@ def homepage():
             <style>
                 body { font-family: Arial, sans-serif; margin: 40px; background: #dae8fc; }
                 h1 { color: #333366; }
+                p { color: #333366; font-weight: bold;}
                 ul { list-style-type: none; padding: 0; }
                 li { margin: 10px 0; }
                 a { color: color: #333366; text-decoration: none; }
                 a:hover { color: #0077cc; text-decoration: underline; }
+                label { color: #333366; }
                 button {
                     background-color: #333366; 
                     color: white; 
@@ -125,7 +127,7 @@ def precipitation():
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                background: #f4f4f4;
+                background: #dae8fc;
                 text-align: center;
             }
             h1 {
@@ -135,6 +137,7 @@ def precipitation():
                 margin: 20px auto;
                 border-collapse: collapse;
                 width: 80%;
+                background: white;
             }
             th, td {
                 border: 1px solid #ddd;
