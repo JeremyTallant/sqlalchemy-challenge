@@ -52,6 +52,22 @@ The datasets were curated from the Global Historical Climatology Network-Daily D
 The `hawaii.sqlite` database consolidates these datasets, offering a unified platform for executing complex SQL queries via SQLAlchemy, enabling efficient data retrieval for analysis and visualization.
 ## Implementation
 This section delves into the implementation details of the Honolulu Climate Analysis and API Tool project, showcasing the technical methodologies and tools utilized to transform raw climate data into actionable insights. It outlines the step-by-step process of data extraction, analysis, and API development, providing a comprehensive overview of how Python, SQLAlchemy, and Flask were employed to analyze climate patterns and create an interactive data access platform.
+### Part 1: Analyze and Explore the Climate Data
+#### Matplotlib Configuration for Inline Visualization
+```python
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+from matplotlib import style
+style.use('fivethirtyeight')
+import matplotlib.pyplot as plt
+```
+Let's begin by configuring Matplotlib to suit our visualization needs within the Jupyter Notebook. By setting it to inline mode, our plots will display directly in the notebook. We also adopt the 'fivethirtyeight' style – known for its clean and visually appealing graphs. Additionally, we opt for SVG format for our output figures, ensuring they are sharp and scalable, enhancing both the quality and clarity of our visual data representations.
+
+
+
+
+
+
 
 
 
