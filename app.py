@@ -47,7 +47,7 @@ def homepage():
                 li { margin: 10px 0; }
                 a { color: color: #333366; text-decoration: none; }
                 a:hover { color: #0077cc; text-decoration: underline; }
-                label { color: #333366; }
+                label { color: #333366; font-weight: bold; }
                 button {
                     background-color: #333366; 
                     color: white; 
@@ -191,7 +191,7 @@ def stations():
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                background: #f4f4f4;
+                background: #dae8fc;
                 text-align: center;
             }
             h1 {
@@ -201,6 +201,7 @@ def stations():
                 margin: 20px auto;
                 border-collapse: collapse;
                 width: 80%;
+                background: white;
             }
             th, td {
                 border: 1px solid #ddd;
@@ -257,7 +258,7 @@ def tobs():
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                background: #f4f4f4;
+                background: #dae8fc;
                 text-align: center;
             }
             h1 {
@@ -267,6 +268,7 @@ def tobs():
                 margin: 20px auto;
                 border-collapse: collapse;
                 width: 80%;
+                background: white;
             }
             th, td {
                 border: 1px solid #ddd;
@@ -317,9 +319,9 @@ def start(start):
     <head>
         <title>Temperature Statistics</title>
         <style>
-            body {{ font-family: Arial, sans-serif; background: #f4f4f4; text-align: center; }}
+            body {{ font-family: Arial, sans-serif; background: #dae8fc; text-align: center; }}
             h1 {{ color: #333366; }}
-            table {{ margin: 20px auto; border-collapse: collapse; width: 80%; }}
+            table {{ margin: 20px auto; border-collapse: collapse; width: 80%; background: white; }}
             th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
             th {{ background-color: #333366; color: white; }}
             tr:nth-child(even) {{ background-color: #f2f2f2; }}
@@ -356,9 +358,9 @@ def start_end(start, end):
     <head>
         <title>Temperature Data</title>
         <style>
-            body {{ font-family: Arial, sans-serif; background: #f4f4f4; text-align: center; }}
+            body {{ font-family: Arial, sans-serif; background: #dae8fc; text-align: center; }}
             h1 {{ color: #333366; }}
-            table {{ margin: 20px auto; border-collapse: collapse; width: 80%; }}
+            table {{ margin: 20px auto; border-collapse: collapse; width: 80%; background: white; }}
             th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
             th {{ background-color: #333366; color: white; }}
             tr:nth-child(even) {{ background-color: #f2f2f2; }}
