@@ -106,6 +106,12 @@ measurement = Base.classes.measurement
 station = Base.classes.station
 ```
 Having reflected our database, we now save references to each table for easy access. We assign `Base.classes.measurement` to `measurement` and `Base.classes.station` to `station`. This creates convenient Python variables representing each table in our database, allowing us to interact with them directly in our upcoming queries. This step simplifies our code and makes our interactions with the `measurement` and `station` tables more intuitive.
+#### Establishing a Database Session
+```python
+# Create our session (link) from Python to the DB
+session = Session(engine)
+```
+With this code, we're creating a session, which is our gateway for communicating with the database. The `Session` object, instantiated with the `engine` we previously created, establishes a link from Python to our database. This session will be used to execute queries and interact with the database, enabling us to retrieve, add, or manipulate data within our `hawaii.sqlite` database directly from Python. Think of it as opening a conversation with our database, ready to send and receive information.
 
 
 
