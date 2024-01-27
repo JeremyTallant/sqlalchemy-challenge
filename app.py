@@ -136,7 +136,7 @@ def precipitation():
             table {
                 margin: 20px auto;
                 border-collapse: collapse;
-                width: 50%;
+                width: 25%;
                 background: #f7f7f7;
             }
             th, td {
@@ -267,7 +267,7 @@ def tobs():
             table {
                 margin: 20px auto;
                 border-collapse: collapse;
-                width: 80%;
+                width: 25%;
                 background: #f7f7f7;
             }
             th, td {
@@ -321,7 +321,7 @@ def start(start):
         <style>
             body {{ font-family: Arial, sans-serif; background: #dae8fc; text-align: center; }}
             h1 {{ color: #333366; }}
-            table {{ margin: 20px auto; border-collapse: collapse; width: 80%; background: #f7f7f7; }}
+            table {{ margin: 20px auto; border-collapse: collapse; width: 40%; background: #f7f7f7; }}
             th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
             th {{ background-color: #333366; color: white; }}
             tr:nth-child(even) {{ background-color: #f2f2f2; }}
@@ -360,7 +360,7 @@ def start_end(start, end):
         <style>
             body {{ font-family: Arial, sans-serif; background: #dae8fc; text-align: center; }}
             h1 {{ color: #333366; }}
-            table {{ margin: 20px auto; border-collapse: collapse; width: 80%; background: #f7f7f7; }}
+            table {{ margin: 20px auto; border-collapse: collapse; width: 40%; background: #f7f7f7; }}
             th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
             th {{ background-color: #333366; color: white; }}
             tr:nth-child(even) {{ background-color: #f2f2f2; }}
