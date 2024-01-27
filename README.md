@@ -151,3 +151,11 @@ In this section, we query the last 12 months of precipitation data from the `mea
 df.describe()
 ```
 This line of code utilizes Pandas' `describe()` function to compute summary statistics for the precipitation data stored in our DataFrame `df`. This function generates descriptive statistics including mean, standard deviation, minimum, maximum, and the quartile values for the dataset, offering a comprehensive statistical overview of the precipitation trends over the last year.
+#### Counting Total Weather Stations
+```python
+# Design a query to calculate the total number stations in the dataset
+total_stations = session.query(func.count(station.station.distinct())).scalar()
+
+print("Total number of stations:", total_stations)
+```
+This code segment is designed to determine the total number of distinct weather stations in the dataset. By utilizing a SQLAlchemy query with `func.count`, we count the unique instances of the `station` identifier in the station table. The `scalar()` method is then used to extract this count as a single value, which we store in `total_stations`. Finally, we output this value, giving us a clear understanding of the number of unique weather stations contributing to our dataset.
