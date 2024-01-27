@@ -19,6 +19,37 @@ The objective of Part 2 is to develop a Flask API based on the findings and quer
 * Implementing routes (`/api/v1.0/<start>` and `/api/v1.0/<start>/<end>`) to return JSON lists of temperature statistics for specified start and/or end date ranges.
 
 This comprehensive analysis and API development aim to equip users with insightful climate data and easy access to relevant information for planning a delightful vacation in Honolulu.
+## Data
+The Honolulu Climate Analysis and API Tool project utilizes two primary data sources stored in CSV files, which are then integrated into a SQLite database (`hawaii.sqlite`) for streamlined querying and analysis:
+1. **Hawaii Measurements (hawaii_measurements.csv)**: This dataset comprises detailed daily climate measurements from various stations across Hawaii. Key columns in this dataset include:
+	* `station`: Identifier for the weather station.
+	* `date`: The date of observation.
+	* `prcp`: Daily precipitation in inches.
+	* `tobs`: Temperature observed at the station on a given day (in Fahrenheit).
+Example entries from `hawaii_measurements.csv`:
+```csv
+Copy code
+station,date,prcp,tobs
+USC00519397,2010-01-01,0.08,65
+USC00519397,2010-01-02,0,63
+USC00519397,2010-01-03,0,74
+```
+2. **Hawaii Stations (hawaii_stations.csv)**: This dataset contains information about each weather station in Hawaii. The columns include:
+	* `station`: Unique identifier of the weather station.
+	* `name`: Name and location of the station.
+	* `latitude`: Geographic latitude.
+	* `longitude`: Geographic longitude.
+	* `elevation`: Elevation above sea level.
+Example entries from `hawaii_stations.csv`:
+```csv
+Copy code
+station,name,latitude,longitude,elevation
+USC00519397,"WAIKIKI 717.2, HI US",21.2716,-157.8168,3
+USC00513117,"KANEOHE 838.1, HI US",21.4234,-157.8015,14.6
+```
+The datasets were curated from the Global Historical Climatology Network-Daily Database (Menne et al., 2012). The comprehensive nature of these datasets facilitates a robust and in-depth analysis of Hawaii's climate, providing valuable insights for the planning of a holiday vacation in Honolulu.
+
+The `hawaii.sqlite` database consolidates these datasets, offering a unified platform for executing complex SQL queries via SQLAlchemy, enabling efficient data retrieval for analysis and visualization.
 
 
 
