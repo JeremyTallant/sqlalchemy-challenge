@@ -84,6 +84,15 @@ Here, we set the stage for interacting with our database using SQLAlchemy, a com
 engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 ```
 Now, we create an engine to connect to the `hawaii.sqlite` database. This engine acts as the primary access point for our database, allowing us to execute SQL queries and access the data stored in `Resources/hawaii.sqlite`. With this connection established, we're ready to dive into the data and start our exploration.
+#### Reflecting Database Schema into Models
+```python
+# reflect an existing database into a new model
+Base = automap_base()
+
+# reflect the tables
+Base.prepare(engine, reflect=True)
+```
+In this step, we utilize SQLAlchemy's `automap_base` to reflect our existing database schema into a new model. This automatic mapping translates the `hawaii.sqlite` database tables into Python classes, creating a clear and direct correspondence between the database structure and our Python code. After establishing the base model, we call `Base.prepare` with the engine we created, setting `reflect=True` to introspect the database tables and create mapped classes. This reflection process is crucial for enabling an ORM-based approach to interact with our database in a Pythonic way.
 
 
 
