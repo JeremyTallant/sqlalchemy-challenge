@@ -333,9 +333,9 @@ The `/` route in your Flask app serves as the homepage and provides a user-frien
 2. **Interactive Elements**: Two date input fields and corresponding buttons are included, allowing users to select dates for temperature data queries. JavaScript functions `redirectToStartRoute()` and `redirectToStartEndRoute()` handle button clicks, redirecting to the appropriate routes with the selected dates.
 
 3. **Navigation Links**: The page offers easy navigation to different data endpoints:
-* `/api/v1.0/precipitation`: Shows precipitation data for the last year.
-* `/api/v1.0/stations`: Lists all active weather stations.
-* `/api/v1.0/tobs`: Displays temperature observations for the most active station over the last year.
+	* `/api/v1.0/precipitation`: Shows precipitation data for the last year.
+	* `/api/v1.0/stations`: Lists all active weather stations.
+	* `/api/v1.0/tobs`: Displays temperature observations for the most active station over the last year.
 
 This homepage effectively serves as a guide for users to explore various aspects of the Hawaii Climate Analysis API, making the data accessible and easy to interact with.
 
