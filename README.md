@@ -200,3 +200,4 @@ session.close()
 ```
 This line of code is crucial as it closes the open database session. Closing the session is an important best practice in database management as it releases the resources held by the session, ensuring there are no lingering connections or transactions. This helps maintain the integrity of the data and the efficiency of the database interactions within your application.
 ### Part 2: Design Your Climate App
+climate 
