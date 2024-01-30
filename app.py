@@ -110,7 +110,7 @@ def homepage():
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     session = Session(engine)
-    year_ago_date = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    year_ago_date = get_year_ago_date()
     results = session.query(measurement.date, measurement.prcp).filter(measurement.date >= year_ago_date).all()
     session.close()
 
@@ -140,7 +140,7 @@ def stations():
 @app.route("/api/v1.0/tobs")
 def tobs():
     session = Session(engine)
-    year_ago_date = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    year_ago_date = get_year_ago_date()
 
     # Query to retrieve temperature observations for the most active station for the last year
     tobs_results = session.query(measurement.date, measurement.tobs).filter(measurement.station == 'USC00519281').filter(measurement.date >= year_ago_date).all()
@@ -160,10 +160,8 @@ def tobs():
 def start(start):
     session = Session(engine)
 
-    # Validate the date format
-    try:
-        valid_start = dt.datetime.strptime(start, "%Y-%m-%d")
-    except ValueError:
+    # Using the helper function for date validation
+    if not valid_date(start):
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."})
 
     # Query to retrieve temperature statistics from the given start date
@@ -190,11 +188,8 @@ def start(start):
 def start_end(start, end):
     session = Session(engine)
 
-    # Validate the date formats
-    try:
-        valid_start = dt.datetime.strptime(start, "%Y-%m-%d")
-        valid_end = dt.datetime.strptime(end, "%Y-%m-%d")
-    except ValueError:
+    # Using the helper function for both start and end date validation
+    if not valid_date(start) or not valid_date(end):
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."})
 
     # Query to retrieve temperature statistics for the given date range

@@ -211,3 +211,19 @@ from sqlalchemy import create_engine, func
 from flask import Flask, jsonify
 ```
 This code block sets the foundation for a Flask application that interacts with a database. First, essential libraries such as NumPy and datetime are imported for numerical operations and handling date/time respectively. SQLAlchemy tools are then imported for Object Relational Mapping (ORM) and database interaction, which includes `create_engine` for connecting to the database, `automap_base` for reflecting the database tables into models, `Session` for managing database transactions, and `func` for SQL function operations. Finally, Flask and its `jsonify` function are imported, setting the stage to create a web application that can serve data from the database in a structured JSON format, facilitating easy access and manipulation of the data through web APIs.
+#### Database Configuration for Flask App
+```python
+# Database Setup
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+Base = automap_base()
+Base.prepare(autoload_with=engine)
+measurement = Base.classes.measurement
+Station = Base.classes.station
+```
+In this section of the Flask application, we're setting up the database connection and preparing our ORM models. We start by creating an `engine` that connects to the `hawaii.sqlite` database stored in the `Resources` directory. The `automap_base` function from SQLAlchemy is then used to create a base class for an automap schema, which helps in reflecting the database tables into Python classes automatically. With `Base.prepare`, the database schema is loaded into SQLAlchemy, making the table structures accessible as classes. We then save references to these classes (`measurement` and `Station`) for easy interaction with the corresponding tables in the database. This setup is integral for the subsequent data retrieval and manipulation within our Flask application.
+
+
+
+
+
+
