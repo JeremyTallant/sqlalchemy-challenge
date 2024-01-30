@@ -248,7 +248,96 @@ This code initializes our Flask application and defines two utility functions to
 2. **get_year_ago_date Function**: This helper function calculates the date one year before the most recent record in our database. It opens a session, queries the latest date from the `measurement` table, closes the session, and then computes the date one year prior to this latest date. This is particularly useful for analyses that require a year's worth of data leading up to the most recent entry.
 
 3. **valid_date Function**: This function checks the validity of a date string. It attempts to parse the provided string as a date in the format 'YYYY-MM-DD'. If successful, it returns `True`, indicating the string is a valid date; otherwise, it returns `False`. This is essential for validating user input in routes where dates are required parameters.
+#### Homepage Setup for Hawaii Climate Analysis API
+```python
+# Flask Routes
+@app.route("/")
+def homepage():
+    """List all available API routes."""
+    return """
+    <html>
+        <head>
+            <title>Hawaii Climate Analysis API</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; background: #dae8fc; }
+                h1 { color: #333366; }
+                p { color: #333366; font-weight: bold;}
+                ul { list-style-type: none; padding: 0; }
+                li { margin: 10px 0; }
+                a { color: color: #333366; text-decoration: none; }
+                a:hover { color: #0077cc; text-decoration: underline; }
+                label { color: #333366; font-weight: bold; }
+                button {
+                    background-color: #333366; 
+                    color: white; 
+                    border: none;
+                    padding: 10px 15px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 5px; 
+                }
+            </style>
+            <script>
+                function redirectToStartRoute() {
+                    var startDate = document.getElementById('start-date').value;
+                    if (startDate) {
+                        window.location.href = '/api/v1.0/' + startDate;
+                    } else {
+                        alert('Please enter a start date.');
+                    }
+                }
 
+                function redirectToStartEndRoute() {
+                    var startDate = document.getElementById('start-end-date').value;
+                    var endDate = document.getElementById('end-date').value;
+                    if (startDate && endDate) {
+                        window.location.href = '/api/v1.0/' + startDate + '/' + endDate;
+                    } else {
+                        alert('Please enter both start and end dates.');
+                    }
+                }
+            </script>
+        </head>
+        <body>
+            <h1>Welcome to the Hawaii Climate Analysis API</h1>
+            <p>Available Routes:</p>
+            <ul>
+                <li><a href="/api/v1.0/precipitation">Precipitation Data for One Year</a></li>
+                <li><a href="/api/v1.0/stations">List of Active Weather Stations</a></li>
+                <li><a href="/api/v1.0/tobs">Temperature Observations of the Most-Active Station for One Year</a></li>
+                <li>
+                    <label for="start-date">Select a date to get temperature data:</label>
+                    <input type="date" id="start-date" min="2010-01-01" max="2017-08-23">
+                    <button onclick="redirectToStartRoute()">Get Start Date Data</button>
+                </li>
+                <li>
+                    <label for="start-end-date">Select a date range to get temperature data: Start Date:</label>
+                    <input type="date" id="start-end-date" min="2010-01-01" max="2017-08-23">
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date" min="2010-01-01" max="2017-08-23">
+                    <button onclick="redirectToStartEndRoute()">Get Start-End Date Data</button>
+                </li>
+            </ul>
+        </body>
+    </html>
+    """
+```
+The `/` route in your Flask app serves as the homepage and provides a user-friendly interface listing all available API routes. It features:
+
+1. **Styling and Layout**: The page is styled with CSS for a clean and organized look. The body has a light blue background (`#dae8fc`), and main titles are colored in a deep blue (`#333366`). Links and buttons are styled consistently to enhance user experience.
+
+2. **Interactive Elements**: Two date input fields and corresponding buttons are included, allowing users to select dates for temperature data queries. JavaScript functions `redirectToStartRoute()` and `redirectToStartEndRoute()` handle button clicks, redirecting to the appropriate routes with the selected dates.
+
+3. **Navigation Links**: The page offers easy navigation to different data endpoints:
+* `/api/v1.0/precipitation`: Shows precipitation data for the last year.
+* `/api/v1.0/stations`: Lists all active weather stations.
+* `/api/v1.0/tobs`: Displays temperature observations for the most active station over the last year.
+
+This homepage effectively serves as a guide for users to explore various aspects of the Hawaii Climate Analysis API, making the data accessible and easy to interact with.
 
 
 
