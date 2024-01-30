@@ -200,4 +200,14 @@ session.close()
 ```
 This line of code is crucial as it closes the open database session. Closing the session is an important best practice in database management as it releases the resources held by the session, ensuring there are no lingering connections or transactions. This helps maintain the integrity of the data and the efficiency of the database interactions within your application.
 ### Part 2: Design Your Climate App
-climate 
+#### Setting Up Flask App
+```python
+import numpy as np
+import datetime as dt
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+from flask import Flask, jsonify
+```
+This code block sets the foundation for a Flask application that interacts with a database. First, essential libraries such as NumPy and datetime are imported for numerical operations and handling date/time respectively. SQLAlchemy tools are then imported for Object Relational Mapping (ORM) and database interaction, which includes `create_engine` for connecting to the database, `automap_base` for reflecting the database tables into models, `Session` for managing database transactions, and `func` for SQL function operations. Finally, Flask and its `jsonify` function are imported, setting the stage to create a web application that can serve data from the database in a structured JSON format, facilitating easy access and manipulation of the data through web APIs.
