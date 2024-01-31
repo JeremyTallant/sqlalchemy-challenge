@@ -338,7 +338,24 @@ The `/` route in your Flask app serves as the homepage and provides a user-frien
 	* `/api/v1.0/tobs`: Displays temperature observations for the most active station over the last year.
 
 This homepage effectively serves as a guide for users to explore various aspects of the Hawaii Climate Analysis API, making the data accessible and easy to interact with.
+#### Precipitation Data Retrieval Endpoint
+```python
+@app.route("/api/v1.0/precipitation")
+def precipitation():
+    session = Session(engine)
+    year_ago_date = get_year_ago_date()
+    results = session.query(measurement.date, measurement.prcp).filter(measurement.date >= year_ago_date).all()
+    session.close()
 
+    if not results:
+        return jsonify({"error": "No precipitation data found."})
+
+    # Format the results as a dictionary
+    precipitation_data = {date: prcp for date, prcp in results}
+
+    return jsonify(precipitation_data)
+```
+This route in the Flask app, `/api/v1.0/precipitation`, fetches and returns the last year's precipitation data from the database. It utilizes a SQLAlchemy session to connect to the SQLite database and query the `measurement` table. The `get_year_ago_date()` function is used to determine the date one year prior to the most recent record, ensuring the data retrieved is for the last 12 months. The results are then formatted into a dictionary where each date is mapped to its corresponding precipitation value. If no data is found, a JSON response with an error message is returned. This endpoint provides an API access point for clients to retrieve historical precipitation data for climate analysis.
 
 
 
