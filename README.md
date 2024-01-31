@@ -356,6 +356,23 @@ def precipitation():
     return jsonify(precipitation_data)
 ```
 This route in the Flask app, `/api/v1.0/precipitation`, fetches and returns the last year's precipitation data from the database. It utilizes a SQLAlchemy session to connect to the SQLite database and query the `measurement` table. The `get_year_ago_date()` function is used to determine the date one year prior to the most recent record, ensuring the data retrieved is for the last 12 months. The results are then formatted into a dictionary where each date is mapped to its corresponding precipitation value. If no data is found, a JSON response with an error message is returned. This endpoint provides an API access point for clients to retrieve historical precipitation data for climate analysis.
+#### Weather Stations Data Endpoint
+```python
+@app.route("/api/v1.0/stations")
+def stations():
+    session = Session(engine)
+    # Query to retrieve all station data
+    stations_results = session.query(Station.name, Station.station, Station.elevation, Station.latitude, Station.longitude).all()
+    session.close()
 
+    if not stations_results:
+        return jsonify({"error": "No station data found."})
+
+    # Format the results as a list of dictionaries
+    stations_data = [{"name": name, "station": station, "elevation": elevation, "latitude": latitude, "longitude": longitude} for name, station, elevation, latitude, longitude in stations_results]
+
+    return jsonify(stations_data)
+```
+This section of the Flask app, accessible via `/api/v1.0/stations`, handles the retrieval of weather station data. The route establishes a session with the SQLite database to query the `Station` table, fetching details such as station name, ID, elevation, latitude, and longitude. The data, if found, is structured into a list of dictionaries, each representing a station. This format is ideal for JSON serialization, facilitating easy consumption by clients. Should no data be available, a JSON-formatted error message is returned. This endpoint is crucial for providing comprehensive information about each weather station involved in the climate analysis.
 
 
