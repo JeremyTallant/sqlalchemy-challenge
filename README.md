@@ -424,3 +424,34 @@ def start(start):
     return jsonify(temp_data)
 ```
 The `/api/v1.0/<start>` route in the Flask app provides temperature statistics (minimum, maximum, and average temperatures) from a specified start date. The route uses the `valid_date` function to validate the date format entered by the user. If the date format is incorrect, it returns a JSON error message. On valid input, it executes a SQLAlchemy query to fetch the required temperature data from the `measurement` table in the database, starting from the given date. The results are formatted into a dictionary that includes the start date and the calculated temperature statistics. In case no data is found for the specified start date, an error message is returned in JSON format. This endpoint is essential for users who need temperature data from a specific start date for their climate analysis.
+#### Temperature Data for a Specified Date Range Endpoint
+```python
+@app.route("/api/v1.0/<start>/<end>")
+def start_end(start, end):
+    session = Session(engine)
+
+    # Using the helper function for both start and end date validation
+    if not valid_date(start) or not valid_date(end):
+        return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."})
+
+    # Query to retrieve temperature statistics for the given date range
+    temp_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start, measurement.date <= end).all()
+    session.close()
+
+    if not temp_results or temp_results[0][0] is None:
+        return jsonify({"error": "No temperature data found for the given date range."})
+
+    min_temp, max_temp, avg_temp = temp_results[0]
+
+    # Format the results as a dictionary
+    temp_data = {
+        "Start Date": start,
+        "End Date": end,
+        "Minimum Temperature": min_temp,
+        "Maximum Temperature": max_temp,
+        "Average Temperature": avg_temp
+    }
+
+    return jsonify(temp_data)
+```
+In the `/api/v1.0/<start>/<end>` route of the Flask application, users can retrieve temperature data, including minimum, maximum, and average temperatures, for a specific date range. The `valid_date` function is utilized to verify the validity of both the start and end dates provided. If the date format is incorrect, a JSON-formatted error message is returned. On valid dates, a query is made to the `measurement` table to gather temperature statistics for the given range. The outcome is neatly packaged into a dictionary that includes the start and end dates alongside the temperature data. If no temperature records are found within the specified range, a corresponding error message is provided. This endpoint is pivotal for analyses that require temperature trends over a custom date range.
