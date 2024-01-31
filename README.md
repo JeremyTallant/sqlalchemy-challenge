@@ -374,5 +374,24 @@ def stations():
     return jsonify(stations_data)
 ```
 This section of the Flask app, accessible via `/api/v1.0/stations`, handles the retrieval of weather station data. The route establishes a session with the SQLite database to query the `Station` table, fetching details such as station name, ID, elevation, latitude, and longitude. The data, if found, is structured into a list of dictionaries, each representing a station. This format is ideal for JSON serialization, facilitating easy consumption by clients. Should no data be available, a JSON-formatted error message is returned. This endpoint is crucial for providing comprehensive information about each weather station involved in the climate analysis.
+#### Temperature Observations Endpoint
+```python
+@app.route("/api/v1.0/tobs")
+def tobs():
+    session = Session(engine)
+    year_ago_date = get_year_ago_date()
 
+    # Query to retrieve temperature observations for the most active station for the last year
+    tobs_results = session.query(measurement.date, measurement.tobs).filter(measurement.station == 'USC00519281').filter(measurement.date >= year_ago_date).all()
+    session.close()
+
+    if not tobs_results:
+        return jsonify({"error": "No temperature observation data found."})
+
+    # Format the results as a list of dictionaries
+    tobs_data = [{"date": date, "temperature": tobs} for date, tobs in tobs_results]
+
+    return jsonify(tobs_data)
+```
+The `/api/v1.0/tobs` route of the Flask app is dedicated to providing temperature observation data (TOBS) for the most active weather station over the past year. It first calculates the date one year prior to the latest record using the `get_year_ago_date()` function. A query is then executed to retrieve temperature data (`tobs`) along with their respective dates from the `measurement` table, specifically for station 'USC00519281'. The results are structured into a JSON-friendly format—a list of dictionaries, each entry pairing a date with its corresponding temperature. In case no data is found, a JSON error message is returned. This endpoint is particularly useful for users interested in detailed temperature trends of the most actively reporting station in the Hawaii climate dataset.
 
