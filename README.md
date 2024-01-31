@@ -394,4 +394,33 @@ def tobs():
     return jsonify(tobs_data)
 ```
 The `/api/v1.0/tobs` route of the Flask app is dedicated to providing temperature observation data (TOBS) for the most active weather station over the past year. It first calculates the date one year prior to the latest record using the `get_year_ago_date()` function. A query is then executed to retrieve temperature data (`tobs`) along with their respective dates from the `measurement` table, specifically for station 'USC00519281'. The results are structured into a JSON-friendly format—a list of dictionaries, each entry pairing a date with its corresponding temperature. In case no data is found, a JSON error message is returned. This endpoint is particularly useful for users interested in detailed temperature trends of the most actively reporting station in the Hawaii climate dataset.
+#### Temperature Data from a Start Date Endpoint
+```python
+@app.route("/api/v1.0/<start>")
+def start(start):
+    session = Session(engine)
 
+    # Using the helper function for date validation
+    if not valid_date(start):
+        return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."})
+
+    # Query to retrieve temperature statistics from the given start date
+    temp_results = session.query(func.min(measurement.tobs), func.max(measurement.tobs), func.avg(measurement.tobs)).filter(measurement.date >= start).all()
+    session.close()
+
+    if not temp_results or temp_results[0][0] is None:
+        return jsonify({"error": "No temperature data found for the given start date."})
+
+    min_temp, max_temp, avg_temp = temp_results[0]
+
+    # Format the results as a dictionary
+    temp_data = {
+        "Start Date": start,
+        "Minimum Temperature": min_temp,
+        "Maximum Temperature": max_temp,
+        "Average Temperature": avg_temp
+    }
+
+    return jsonify(temp_data)
+```
+The `/api/v1.0/<start>` route in the Flask app provides temperature statistics (minimum, maximum, and average temperatures) from a specified start date. The route uses the `valid_date` function to validate the date format entered by the user. If the date format is incorrect, it returns a JSON error message. On valid input, it executes a SQLAlchemy query to fetch the required temperature data from the `measurement` table in the database, starting from the given date. The results are formatted into a dictionary that includes the start date and the calculated temperature statistics. In case no data is found for the specified start date, an error message is returned in JSON format. This endpoint is essential for users who need temperature data from a specific start date for their climate analysis.
