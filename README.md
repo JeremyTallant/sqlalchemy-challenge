@@ -455,3 +455,11 @@ def start_end(start, end):
     return jsonify(temp_data)
 ```
 In the `/api/v1.0/<start>/<end>` route of the Flask application, users can retrieve temperature data, including minimum, maximum, and average temperatures, for a specific date range. The `valid_date` function is utilized to verify the validity of both the start and end dates provided. If the date format is incorrect, a JSON-formatted error message is returned. On valid dates, a query is made to the `measurement` table to gather temperature statistics for the given range. The outcome is neatly packaged into a dictionary that includes the start and end dates alongside the temperature data. If no temperature records are found within the specified range, a corresponding error message is provided. This endpoint is pivotal for analyses that require temperature trends over a custom date range.
+#### Flask Application Execution Command
+```python
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+This code snippet is the concluding part of a Flask application script, responsible for running the app. The `if __name__ == '__main__':` statement checks if the script is being run directly (rather than being imported as a module). If it is, `app.run(debug=True)` is executed, which starts the Flask application with debug mode enabled. Debug mode allows for live reloading and provides a debugger if the application encounters any issues during runtime. This command is essential for initiating the Flask server, making the API accessible for requests and enabling efficient development and testing of the application.
+
