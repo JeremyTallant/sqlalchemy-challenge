@@ -487,3 +487,23 @@ The summary statistics table for precipitation data, with a count of 2,015 obser
 The fact that the minimum value is 0.000 indicates there were days without any recorded precipitation. The 25th percentile is also at 0.000, suggesting that at least 25% of the days had no rainfall. The median, or 50th percentile, is only 0.020 inches, which is very low and further implies that over half of the days had very little to no precipitation.
 
 The 75th percentile is 0.130 inches, meaning that 75% of the days had 0.130 inches of rain or less, which aligns with the low average daily precipitation. However, the maximum value recorded is 6.700 inches, indicating that there was at least one day with an extremely high amount of rainfall. This maximum value is an outlier when compared with the rest of the data, as it is significantly higher than the mean and the third quartile, highlighting the presence of sporadic but intense rainfall events within the dataset.
+### Station Analysis
+The station analysis section of our report begins by examining the infrastructure that supports precipitation data collection. A foundational aspect of this analysis is the total number of weather stations contributing to our dataset. We have data from a network of 9 stations, each playing a critical role in capturing the variability and intensity of weather patterns across different locations. This network's density and distribution are crucial for providing a comprehensive understanding of the area's climate behavior.
+#### Station Observation Count
+| Station ID   | Observation Count |
+|--------------|-------------------|
+| USC00519281  | 2772              |
+| USC00519397  | 2724              |
+| USC00513117  | 2709              |
+| USC00519523  | 2669              |
+| USC00516128  | 2612              |
+| USC00514830  | 2202              |
+| USC00511918  | 1979              |
+| USC00517948  | 1372              |
+| USC00518838  | 511               |
+
+In our network of 9 weather stations, there is a notable variation in the count of data points collected by each, which could be indicative of the stations' operational periods or the frequency of data transmission. Station USC00519281 leads with the highest count of 2,772 observations, suggesting it might be one of the most reliable or longest-running stations in the network. Following closely are stations USC00519397 and USC00513117 with 2,724 and 2,709 counts respectively, indicating a similarly robust data collection regime.
+
+Station USC00519523 has contributed 2,669 records, and USC00516128 has provided 2,612, both representing a significant number of data points, though slightly fewer than the top three stations. Station USC00514830, with 2,202 observations, and USC00511918, with 1,979, show a decrease in the number of records, which might point to more recent establishment or less frequent data reporting.
+
+The last two stations, USC00517948 and USC00518838, have much fewer observations, with 1,372 and 511 counts respectively. These stations could be newer, might have experienced operational issues, or are perhaps located in less accessible areas, resulting in a lower count of observations. The variability in data count across the stations is critical for understanding the extent and limitations of the dataset when conducting comprehensive climatic and weather pattern analyses.
