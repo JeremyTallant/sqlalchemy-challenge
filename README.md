@@ -465,5 +465,24 @@ This code snippet is the concluding part of a Flask application script, responsi
 ## Insights
 The "Insights" section of this project offers a deep dive into the significant findings derived from our extensive climate analysis of Hawaii's weather stations. This section is not just about uncovering patterns and trends in precipitation and temperature data; it also includes a preview of the actual data returned by the API. By showcasing these results, we demonstrate the real-world application and effectiveness of our Flask API in retrieving and presenting climate data. These insights are crucial for understanding Hawaii's climate, assisting in strategic decision-making like planning the perfect time for a holiday in Honolulu. Through this section, we illustrate the practical utility and analytical power of combining data-driven analysis with effective data retrieval mechanisms.
 
+### Precipitation Analysis 
+#### Precipitation Graph
 ![image](images/precipitation.svg)
 The bar chart provides a granular view of daily precipitation over a 12-month period, revealing a highly variable pattern of rainfall. Days with scant precipitation alternate with occasional spikes suggesting heavy rainfall events, some exceeding 5 inches, which could represent significant weather phenomena. The consistent presence of bars, albeit of varying heights, indicates no prolonged dry spells, although there is a clear unevenness in the distribution of rainfall. These peaks might be seen as outliers with potential implications for water resource management and agricultural planning. The data does not suggest a clear trend of increasing or decreasing rainfall over the year, but rather an episodic nature of precipitation, which could be indicative of the region's climatic behavior. 
+#### Summary Statistics Table
+| Statistic | Value     |
+|-----------|-----------|
+| Count     | 2015.000  |
+| Mean      | 0.176462  |
+| Std       | 0.460288  |
+| Min       | 0.000000  |
+| 25%       | 0.000000  |
+| 50% (Median) | 0.020000  |
+| 75%       | 0.130000  |
+| Max       | 6.700000  |
+
+The summary statistics table for precipitation data, with a count of 2,015 observations, provides a quantitative overview of rainfall over a given period. The average (mean) daily precipitation is approximately 0.176 inches, which indicates that, on average, there is a slight amount of rainfall each day. However, the standard deviation is quite high at 0.460 inches, signaling that there is substantial variability in daily rainfall amounts.
+
+The fact that the minimum value is 0.000 indicates there were days without any recorded precipitation. The 25th percentile is also at 0.000, suggesting that at least 25% of the days had no rainfall. The median, or 50th percentile, is only 0.020 inches, which is very low and further implies that over half of the days had very little to no precipitation.
+
+The 75th percentile is 0.130 inches, meaning that 75% of the days had 0.130 inches of rain or less, which aligns with the low average daily precipitation. However, the maximum value recorded is 6.700 inches, indicating that there was at least one day with an extremely high amount of rainfall. This maximum value is an outlier when compared with the rest of the data, as it is significantly higher than the mean and the third quartile, highlighting the presence of sporadic but intense rainfall events within the dataset.
