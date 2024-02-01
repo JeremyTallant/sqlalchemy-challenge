@@ -468,6 +468,7 @@ The "Insights" section of this project offers a deep dive into the significant f
 ### Precipitation Analysis 
 #### Precipitation Graph
 ![image](images/precipitation.svg)
+
 The bar chart provides a granular view of daily precipitation over a 12-month period, revealing a highly variable pattern of rainfall. Days with scant precipitation alternate with occasional spikes suggesting heavy rainfall events, some exceeding 5 inches, which could represent significant weather phenomena. The consistent presence of bars, albeit of varying heights, indicates no prolonged dry spells, although there is a clear unevenness in the distribution of rainfall. These peaks might be seen as outliers with potential implications for water resource management and agricultural planning. The data does not suggest a clear trend of increasing or decreasing rainfall over the year, but rather an episodic nature of precipitation, which could be indicative of the region's climatic behavior. 
 #### Summary Statistics Table
 | Statistic | Value     |
