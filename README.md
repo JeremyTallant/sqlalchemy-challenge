@@ -507,4 +507,4 @@ In our network of 9 weather stations, there is a notable variation in the count 
 Station USC00519523 has contributed 2,669 records, and USC00516128 has provided 2,612, both representing a significant number of data points, though slightly fewer than the top three stations. Station USC00514830, with 2,202 observations, and USC00511918, with 1,979, show a decrease in the number of records, which might point to more recent establishment or less frequent data reporting.
 
 The last two stations, USC00517948 and USC00518838, have much fewer observations, with 1,372 and 511 counts respectively. These stations could be newer, might have experienced operational issues, or are perhaps located in less accessible areas, resulting in a lower count of observations. The variability in data count across the stations is critical for understanding the extent and limitations of the dataset when conducting comprehensive climatic and weather pattern analyses.
-tobs
+tobs temperature 
