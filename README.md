@@ -3,11 +3,11 @@
 ## Background
 In the Honolulu Climate Analysis and API Tool project, a comprehensive exploration and analysis of climate data for Honolulu, Hawaii, was conducted to assist in planning a long holiday vacation. Utilizing Python, SQLAlchemy, Pandas, and Matplotlib, the project delved into a detailed climate database, employing SQLAlchemy ORM queries for data extraction. The analysis began with a thorough precipitation study, tracing back 12 months from the most recent data point in the dataset, and involving meticulous data loading and plotting to visualize precipitation trends. This was followed by an extensive station analysis, focusing on identifying the most active weather stations and examining their observation counts. Critical temperature metrics such as the lowest, highest, and average temperatures were calculated, particularly for the station with the highest frequency of observations. The project culminated in the development of a Flask API, offering diverse endpoints to access climate data, including routes for precipitation data, station listings, temperature observations, and temperature statistics for specific date ranges. This Flask API serves as a versatile tool, providing JSON formatted responses for seamless integration with other applications, thereby elevating the project's utility for effective trip planning and broader climate research endeavors.
 ## Table of Contents
-- Objective(#objective)
-- Data(#data)
-- Implementation(#implementation)
-- Insights(#insights)
-- Conclusion(#conclusion)
+- [Objective](#objective)
+- [Data](#data)
+- [Implementation](#implementation)
+- [Insights](#insights)
+- [Conclusion](#conclusion)
 ## Objective
 ### Part 1: Analyze and Explore the Climate Data
 The primary objective of Part 1 is to perform a thorough climate analysis and data exploration of Honolulu, Hawaii, in preparation for a holiday vacation. Using Python, SQLAlchemy, Pandas, and Matplotlib, this part involves a detailed examination of a climate database, emphasizing precipitation and station analysis. The process includes:
