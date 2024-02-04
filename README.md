@@ -519,3 +519,8 @@ Station USC00519281 showcases a substantial range in temperature, from a low of 
 ![image](images/tobs.svg)
 
 The histogram of temperature observations for Station USC00519281 shows a distribution that is slightly left-skewed (or negatively skewed). This skewness is indicated by the longer tail extending towards the lower temperatures on the left side of the histogram and the bulk of the data concentrated on the right. While the mode — the peak of the histogram — is around the 70°F to 75°F range, the tail to the left suggests that there are more infrequent cold temperature occurrences compared to the higher temperatures. This left skew is not extreme but is noticeable enough to indicate that lower temperatures, while less common, have a broader range of variability than the higher temperatures.
+### Flask App
+#### Homepage
+![image](images/homepage.png)
+
+The homepage of the Hawaii Climate Analysis API provides a user-friendly interface that introduces users to the various data retrieval options available. The page lists accessible routes for data such as 'Precipitation Data for One Year', 'List of Active Weather Stations', and 'Temperature Observations of the Most-Active Station for One Year'. Additionally, it offers users the functionality to select specific dates or date ranges to retrieve temperature data, with input fields and buttons clearly labeled for initiating data queries. The layout is straightforward and utilitarian, focusing on ease of use and functionality to enable efficient access to climate data for analysis.
